@@ -1,7 +1,7 @@
 // components/ProductCard.tsx
 import { Product } from '@/types';
 import { Button } from '@/components/ui/button';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '@/lib/api';
 
 interface ProductCardProps {
@@ -9,6 +9,8 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+  const queryClient = useQueryClient(); // ✅ Add this
+
   const { mutate: addToCart, isPending } = useMutation({
     mutationFn: async () => {
       await api.post('/api/orders/cart', {
@@ -17,6 +19,8 @@ export default function ProductCard({ product }: ProductCardProps) {
       });
     },
     onSuccess: () => {
+      // ✅ Invalidate the cart query to trigger refetch in Navbar
+      queryClient.invalidateQueries({ queryKey: ['cart'] });
       alert('✅ Added to cart!');
     },
     onError: () => {
