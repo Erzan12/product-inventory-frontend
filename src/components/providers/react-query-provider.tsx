@@ -11,3 +11,22 @@ export function ReactQueryProvider({ children }: { children: React.ReactNode }) 
     </QueryClientProvider>
   );
 }
+
+
+  // const handleLogin = async () => {
+  //   try {
+  //     const response = await api.post('/api/auth/login', {
+  //       email,
+  //       password,
+  //     });
+
+  //     const { access_token } = response.data.access_token;
+
+  //     localStorage.setItem('token', access_token);
+  //     alert('Login successful!');
+  //     router.push('/'); // redirect to homepage
+  //   } catch (error) {
+  //     console.error(error);
+  //     alert('Login failed. Check your credentials.');
+  //   }
+  // };
